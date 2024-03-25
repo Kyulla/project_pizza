@@ -1,13 +1,14 @@
+import Navbar from "./navbar";
 export const metadata = {
   title: "Project pizza",
   description: "Sito web di una pizzeria",
 };
 
-export default function RootLayout(){
+export default function RootLayout() {
   return (
     <html lang="it">
       <head>
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous" />
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossOrigin="anonymous" />
         <link rel="shortcut icon" href="" />
         <meta name="description" content="Sito web di una pizzeria" />
         <meta name="keywords" content="Pizzeria, pizza, ordini" />
@@ -16,7 +17,7 @@ export default function RootLayout(){
         <title>Project Pizza</title>
       </head>
       <body>
-
+        <Navbar />
       </body>
     </html>
   );
