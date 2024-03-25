@@ -14,3 +14,9 @@ async function connectToDatabase(){
 
     return client;
 }
+
+async function getMenuItems(){
+    const client = await connectToDatabase();
+    const db = client.db(dbName);
+    return db.collection(menu);
+}
