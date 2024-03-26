@@ -1,22 +1,32 @@
+import { data } from "autoprefixer";
 import { MongoClient } from "mongodb";
+const dotenv = require("dotenv");
+dotenv.config();
 
-const uri = "mongodb://localhost:27017";
-const dbName = "project_pizza";
+const host = process.env.DB_HOST;
+const user = process.env.DB_USER;
+const password = process.env.DB_PASSWORD;
+const database = process.env.DB_NAME;
+
+const uri = `mongodb+srv://${user}:${password}@${host}/${database}`;
 let cachedClient = null;
 
-async function connectToDatabase(){
+export async function connectToDatabase(){
     if(cachedClient){
         return cachedClient;
     }
 
-    const client = await MongoClient.connect(uri, {useNewUrlParses: true, useUnifiedTopology: true});
+    const client = await MongoClient.connect(uri);
     cachedClient = client;
 
     return client;
 }
 
-async function getMenuItems(){
+export async function getMenuItems(){
     const client = await connectToDatabase();
-    const db = client.db(dbName);
-    return db.collection(menu);
+    const db = client.db(database);
+    const menuCollection = db.collection("menu");
+    const menuItems = await menuCollection.find().toArray();
+
+    return menuItems;
 }
