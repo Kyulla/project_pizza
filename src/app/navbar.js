@@ -1,7 +1,9 @@
+"use client"
 import React from 'react';
 import '@fortawesome/fontawesome-free/css/all.min.css';
-import { toggleMenu } from './sidebar';
+import { useProject } from './context';
 const Navbar = () => {
+    const { toggleMenu } = useProject();
     return (
         <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
             <div className="container-fluid ">

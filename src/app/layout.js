@@ -1,5 +1,6 @@
 import Navbar from "./navbar";
 import Sidebar from "./sidebar";
+import { ProjectProvider } from "./context";
 export const metadata = {
   title: "Project pizza",
   description: "Sito web di una pizzeria",
@@ -18,8 +19,10 @@ export default function RootLayout() {
         <title>Project Pizza</title>
       </head>
       <body>
-        <Navbar />
-        <Sidebar />
+        <ProjectProvider>
+          <Navbar />
+          <Sidebar />
+        </ProjectProvider>
       </body>
     </html>
   );

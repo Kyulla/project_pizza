@@ -1,17 +1,14 @@
 "use client"
 import React, { useState } from 'react';
-import './App.css';
+import '../../App.css';
+import { useProject } from './context';
 
 function Sidebar() {
-    const [isMenuOpen, setIsMenuOpen] = useState(false);
-
-    const toggleMenu = () => {
-        setIsMenuOpen(!isMenuOpen);
-    };
+    const { isMenuOpen } = useProject();
 
     return (
         <>
-            <button onClick={toggleMenu}>x</button >
+
             <div id="wrapper">
                 <div id="sidebar-wrapper" className={`sidebar-wrapper ${isMenuOpen ? 'active' : 'hidden'}`}>
                     <ul className="sidebar-nav">
