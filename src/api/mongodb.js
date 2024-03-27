@@ -1,4 +1,3 @@
-import { data } from "autoprefixer";
 import { MongoClient } from "mongodb";
 const dotenv = require("dotenv");
 dotenv.config();
@@ -20,13 +19,4 @@ export async function connectToDatabase(){
     cachedClient = client;
 
     return client;
-}
-
-export async function getMenuItems(){
-    const client = await connectToDatabase();
-    const db = client.db(database);
-    const menuCollection = db.collection("menu");
-    const menuItems = await menuCollection.find().toArray();
-
-    return menuItems;
 }
