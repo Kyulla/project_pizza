@@ -2,6 +2,7 @@
 import React, { useState } from 'react';
 import '../../App.css';
 import { useProject } from './context';
+import Link from 'next/link'
 
 function Sidebar() {
     const { isMenuOpen } = useProject();
@@ -18,19 +19,19 @@ function Sidebar() {
                             </a>
                         </li>
                         <li>
-                            <a href="#">Pizze</a>
+                            <Link href="/example/Pizze">Pizze</Link>
                         </li>
                         <li>
-                            <a href="#">Panini</a>
+                            <Link href="/example/Panini">Panini</Link>
                         </li>
                         <li>
-                            <a href="#">Antipasti</a>
+                            <Link href="/example/Antipasti">Antipasti</Link>
                         </li>
                         <li>
-                            <a href="#">Desert</a>
+                            <Link href="/example/Desert">Desert</Link>
                         </li>
                         <li>
-                            <a href="#">Bibite</a>
+                            <Link href="/example/Bibite">Bibite</Link>
                         </li>
                     </ul>
                 </div>

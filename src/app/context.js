@@ -1,5 +1,5 @@
 "use client"
-import React, { createContext, useContext, useState } from 'react';
+import React, { createContext, useContext, useEffect, useState } from 'react';
 import axios from 'axios';
 
 const CounterContext = createContext();
@@ -12,20 +12,25 @@ export const ProjectProvider = ({ children }) => {
 
     const toggleMenu = () => {
         setIsMenuOpen(!isMenuOpen);
+        console.log(isMenuOpen)
     };
 
-    const fetchMenuItems = async () => {
-        try{
-            const response = await axios.get("/api/items");
-            setMenu(response.data);
+    useEffect(() => {
+        async function fetchMenuItems() {
+            try {
+                const response = await axios.get("/api/menuItems");
+                setMenu(response.data);
+                console.log(response.data)
+            } catch (error) {
+                console.error("Errore con la chiamata get fetchMenuItems: ", error);
+            }
         }
-        catch(error){
-            console.error("Errore con la chiamata get fetchMenuItems: ", error);
-        }
-    }
+
+        fetchMenuItems();
+    }, []);
 
     return (
-        <CounterContext.Provider value={{ isMenuOpen, toggleMenu, fetchMenuItems, menu }}>
+        <CounterContext.Provider value={{ isMenuOpen, toggleMenu, menu }}>
             {children}
         </CounterContext.Provider>
     );

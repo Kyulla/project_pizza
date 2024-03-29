@@ -1,12 +1,13 @@
 import Navbar from "./navbar";
-import Sidebar from "./sidebar";
 import { ProjectProvider } from "./context";
+import Routing from "./example/[men]/page";
+import Sidebar from "./sidebar";
 export const metadata = {
   title: "Project pizza",
   description: "Sito web di una pizzeria",
 };
 
-export default function RootLayout() {
+export default function RootLayout({ children }) {
   return (
     <html lang="it">
       <head>
@@ -22,6 +23,7 @@ export default function RootLayout() {
         <ProjectProvider>
           <Navbar />
           <Sidebar />
+          {children}
         </ProjectProvider>
       </body>
     </html>

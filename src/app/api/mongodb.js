@@ -10,8 +10,8 @@ const database = process.env.DB_NAME;
 const uri = `mongodb+srv://${user}:${password}@${host}/${database}`;
 let cachedClient = null;
 
-export async function connectToDatabase(){
-    if(cachedClient){
+export async function connectToDatabase() {
+    if (cachedClient) {
         return cachedClient;
     }
 
