@@ -5,13 +5,14 @@ import { useProject } from './context';
 import Sidebar from "./sidebar";
 import Navbar from './navbar';
 import Home from './home';
-const page = () => {
-
+import FormLogin from './form';
+const Page = () => {
+  const { isLogged } = useProject();
   return (
     <>
-      <Home />
+      {isLogged ? <Home /> : <FormLogin />}
     </>
   );
 }
 
-export default page;
+export default Page;
