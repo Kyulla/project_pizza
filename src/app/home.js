@@ -6,7 +6,7 @@ import { Image } from "react-bootstrap";
 import { Row, Col } from 'react-bootstrap';
 const Home = () => {
 
-    const { menu } = useProject();
+    const { menu, addTocart } = useProject();
     if (menu == null) return <p>loading...</p>
     return (
         <>
@@ -25,7 +25,9 @@ const Home = () => {
                                     <div className="card-body">
                                         <h5 class="card-title">{value.name}</h5>
                                         <p class="card-text">Leggi di più</p>
-                                        <a style={{ display: 'flex', justifyContent: 'center' }} href="#" class="btn btn-primary">Aggiungi al carrello</a>
+                                        <button onClick={() => addTocart(value.name, value.description, value.price)}>
+                                            Aggiungi Prodotto al Carrello
+                                        </button>
                                     </div>
                                 </div>
                             </>
