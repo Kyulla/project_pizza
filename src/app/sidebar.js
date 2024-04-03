@@ -9,11 +9,14 @@ function Sidebar() {
 
     return (
         <>
+
             <div id="wrapper">
                 <div id="sidebar-wrapper" className={`sidebar-wrapper ${isMenuOpen ? 'active' : 'hidden'}`}>
                     <ul className="sidebar-nav">
                         <li className="sidebar-brand">
-                            <Link href="http://localhost:3000/">Home</Link>
+                            <a href="#">
+                                Menù
+                            </a>
                         </li>
                         <li>
                             <Link href="/example/Pizze">Pizze</Link>
@@ -30,13 +33,11 @@ function Sidebar() {
                         <li>
                             <Link href="/example/Bibite">Bibite</Link>
                         </li>
-                        <li>
-                            <Link href="/example/Carrello">Carrello</Link>
-                        </li>
                     </ul>
                 </div>
             </div>
         </>
+
     );
 
 }

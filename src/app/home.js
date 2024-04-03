@@ -6,7 +6,7 @@ import { Image } from "react-bootstrap";
 import { Row, Col } from 'react-bootstrap';
 const Home = () => {
 
-    const { menu, addToCart } = useProject();
+    const { menu, addTocart } = useProject();
     if (menu == null) return <p>loading...</p>
     return (
         <>
@@ -25,7 +25,7 @@ const Home = () => {
                                     <div className="card-body">
                                         <h5 class="card-title">{value.name}</h5>
                                         <p class="card-text">Leggi di più</p>
-                                        <button onClick={() => addToCart(value.name, value.description, value.price)}>
+                                        <button onClick={() => addTocart(value.name, value.description, value.price)}>
                                             Aggiungi Prodotto al Carrello
                                         </button>
                                     </div>
@@ -44,9 +44,7 @@ const Home = () => {
                                     <div className="card-body">
                                         <h5 class="card-title">{value.name}</h5>
                                         <p class="card-text">Leggi di più</p>
-                                        <button onClick={() => addToCart(value.name, value.description, value.price)}>
-                                            Aggiungi Prodotto al Carrello
-                                        </button>
+                                        <a style={{ display: 'flex', justifyContent: 'center' }} href="#" class="btn btn-primary">Aggiungi al carrello</a>
                                     </div>
                                 </div>
                             </>
@@ -63,9 +61,7 @@ const Home = () => {
                                     <div className="card-body">
                                         <h5 class="card-title">{value.name}</h5>
                                         <p class="card-text">Leggi di più</p>
-                                        <button onClick={() => addToCart(value.name, value.description, value.price)}>
-                                            Aggiungi Prodotto al Carrello
-                                        </button>
+                                        <a style={{ display: 'flex', justifyContent: 'center' }} href="#" class="btn btn-primary">Aggiungi al carrello</a>
                                     </div>
                                 </div>
                             </>
@@ -82,9 +78,7 @@ const Home = () => {
                                     <div className="card-body">
                                         <h5 class="card-title">{value.name}</h5>
                                         <p class="card-text">Leggi di più</p>
-                                        <button onClick={() => addToCart(value.name, value.description, value.price)}>
-                                            Aggiungi Prodotto al Carrello
-                                        </button>
+                                        <a style={{ display: 'flex', justifyContent: 'center' }} href="#" class="btn btn-primary">Aggiungi al carrello</a>
                                     </div>
                                 </div>
                             </>
@@ -101,9 +95,7 @@ const Home = () => {
                                     <div className="card-body">
                                         <h5 class="card-title">{value.name}</h5>
                                         <p class="card-text">Leggi di più</p>
-                                        <button onClick={() => addToCart(value.name, value.description, value.price)}>
-                                            Aggiungi Prodotto al Carrello
-                                        </button>
+                                        <a style={{ display: 'flex', justifyContent: 'center' }} href="#" class="btn btn-primary">Aggiungi al carrello</a>
                                     </div>
                                 </div>
                             </>
