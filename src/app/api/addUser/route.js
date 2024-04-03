@@ -53,3 +53,4 @@ export async function POST(newUser) {
         NextResponse.json({ error: "Errore durante il recupero degli elementi del Users" });
     }
 }
+

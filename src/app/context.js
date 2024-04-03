@@ -13,11 +13,8 @@ export const ProjectProvider = ({ children }) => {
     const [stateUsername, setUsername] = useState("")
     const [stateName, setName] = useState("")
     const [stateSurname, setSurname] = useState("")
-    const [address, setAddress] = useState("");
-    const [city, setCity] = useState("");
-    const [zipcode, setZipcode] = useState("");
     const [user, setUser] = useState("")
-    const [cart, setCart] = useState([])
+    const [carrello, setCarrello] = useState("")
 
     const toggleMenu = () => {
         setIsMenuOpen(!isMenuOpen);
@@ -45,39 +42,29 @@ export const ProjectProvider = ({ children }) => {
             username: stateUsername,
             name: stateName,
             surname: stateSurname,
-            address: address,
-            city: city,
-            zipcode: zipcode,
         }
         setUser(user)
     }
 
-    function addToCart(name, description, price) {
-        const existingItemIndex = cart.findIndex(item => item.name === name);
-
-        if (existingItemIndex !== -1) {
-            const updatedCart = [...cart];
-            updatedCart[existingItemIndex].quantity += 1;
-            setCart(updatedCart);
-        } else {
-            const newItem = {
-                name: name,
-                description: description,
-                price: price,
-                quantity: 1
-            };
-            setCart(prevCart => [...prevCart, newItem]);
+    function addTocart(name, description, price) {
+        const user = {
+            username: stateUsername,
+            name: stateName,
+            surname: stateSurname,
+            orders_history: [
+                {
+                    items: [
+                        {
+                            name: name,
+                            description: description,
+                            price: price
+                        }
+                    ]
+                }
+            ]
         }
-    }
-
-    function checkout(){
-        alert("Pagamento avvenuto con successo");
-        setCart([]);
-    }
-
-    function emptyCart(){
-        alert("Carrello svuotato");
-        setCart([]);
+        POST(user)
+        setCarrello(user)
     }
 
     function handleChangeUsername(event) {
@@ -95,23 +82,8 @@ export const ProjectProvider = ({ children }) => {
         console.log(event.target.value)
     }
 
-    function handleChangeAddress(event) {
-        setAddress(event.target.value)
-        console.log(event.target.value)
-    }
-
-    function handleChangeCity(event) {
-        setCity(event.target.value)
-        console.log(event.target.value)
-    }
-
-    function handleChangeZipcode(event) {
-        setZipcode(event.target.value)
-        console.log(event.target.value)
-    }
-
     return (
-        <CounterContext.Provider value={{ isMenuOpen, toggleMenu, menu, isLogged, loginForm, emptyCart, handleChangeUsername, handleChangeName, handleChangeSurname, handleChangeAddress, handleChangeCity, handleChangeZipcode, user, addToCart, cart, checkout }}>
+        <CounterContext.Provider value={{ isMenuOpen, toggleMenu, menu, isLogged, loginForm, handleChangeUsername, handleChangeName, handleChangeSurname, user, addTocart, carrello }}>
             {children}
         </CounterContext.Provider>
     );
