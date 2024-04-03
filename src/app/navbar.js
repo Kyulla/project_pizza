@@ -11,7 +11,7 @@ const Navbar = () => {
                 <div className="d-flex justify-content-between align-items-center w-100">
                     <i onClick={toggleMenu} className="fas fa-bars text-white"></i>
                     <Link className="text-white" href="http://localhost:3000/">Home</Link>
-                    <i className="fa fa-shopping-cart text-white "></i>
+                    <Link className="fa fa-shopping-cart text-white " href="/example/Carrello"></Link>
                 </div>
             </div>
         </nav>
