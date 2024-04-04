@@ -1,6 +1,6 @@
 import Navbar from "./navbar";
 import { ProjectProvider } from "./context";
-import Routing from "./example/[men]/page";
+import Routing from "./section/[men]/page";
 import Sidebar from "./sidebar";
 export const metadata = {
   title: "Project pizza",

@@ -1,14 +1,17 @@
 'use client'
 import { useProject } from "@/app/context";
-import { Image } from "react-bootstrap";
+import { useEffect } from "react";
+import { Form, Image } from "react-bootstrap";
 import { Row, Col } from 'react-bootstrap';
 
 function Routing({ params: { men } }) {
-    const { menu, cart, user, checkout, addToCart, emptyCart } = useProject();
+    const { menu, cart, user, checkout, addToCart, city, emptyCart, removeFromCart, handleChangeCardHolder,handleChangeCardNumber, handleChangeCardMonth, handleChangeCardYear, handleChangeCardCvv, handleChangeAddress, handleChangeCity, handleChangeZipcode } = useProject();
     const isCartRoute = men === 'Carrello';
     const totalPrice = cart.reduce((total, item) => total + (item.price * item.quantity), 0);
     const date = new Date();
     const dateString = `${String(date.getDate()).padStart(2, '0')}/${String(date.getMonth() + 1).padStart(2, '0')}/${date.getFullYear()}`;
+
+    useEffect(() => { }, [cart]);
 
     if (isCartRoute) {
         return (
@@ -34,7 +37,26 @@ function Routing({ params: { men } }) {
                                         <div class="text-muted">
                                             <h5 class="font-size-16 mb-3">Intestato a:</h5>
                                             <h5 class="font-size-15 mb-2">{user.name} {user.surname}</h5>
-                                            <p class="mb-1">{user.address}, {user.city} {user.zipcode}</p>
+                                            <Form style={{ width: '22rem' }}>
+                                                < Form.Group className="mb-4" >
+                                                    <Form.Control placeholder="Indirizzo" type="text" id="Address" onChange={handleChangeAddress} required />
+                                                </Form.Group >
+                                                < Form.Group className="mb-4" >
+                                                    <Form.Control placeholder="CAP" type="number" id="Zipcode" onChange={handleChangeZipcode} />
+                                                </Form.Group >
+                                                <label htmlFor="city">Seleziona una città:</label>
+                                                <select id="city" name="city" onChange={handleChangeCity}>
+                                                    <option value="Palermo">Palermo</option>
+                                                    <option value="Agrigento">Agrigento</option>
+                                                    <option value="Caltanissetta">Caltanissetta</option>
+                                                    <option value="Catania">Catania</option>
+                                                    <option value="Enna">Enna</option>
+                                                    <option value="Messina">Messina</option>
+                                                    <option value="Ragusa">Ragusa</option>
+                                                    <option value="Siracusa">Siracusa</option>
+                                                    <option value="Trapani">Trapani</option>
+                                                </select>
+                                            </Form>
                                         </div>
                                     </div>
                                     <div class="col-sm-6">
@@ -62,9 +84,9 @@ function Routing({ params: { men } }) {
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                {cart.map((item, index) =>(
+                                                {cart.map((item, index) => (
                                                     <tr>
-                                                        <th scope="row">{index+1}</th>
+                                                        <th scope="row">{index + 1}</th>
                                                         <td>
                                                             <div>
                                                                 <h5 class="text-truncate font-size-14 mb-1">{item.name}</h5>
@@ -72,27 +94,35 @@ function Routing({ params: { men } }) {
                                                             </div>
                                                         </td>
                                                         <td>€ {item.price}</td>
-                                                        <td>x{item.quantity}</td>
+                                                        <td>x{item.quantity} <button onClick={() => removeFromCart(item.name)} class="btn btn-danger">Rimuovi</button></td>
                                                         <td class="text-end">€ {item.price * item.quantity}</td>
                                                     </tr>
                                                 ))}
                                                 <tr>
-                                                    <th scope="row" colspan="4" class="text-end">Totale parziale</th>
+                                                    <th scope="row" colSpan="4" class="text-end">Totale parziale</th>
                                                     <td class="text-end">€ {totalPrice}</td>
                                                 </tr>
                                                 <tr>
-                                                    <th scope="row" colspan="4" class="border-0 text-end">
+                                                    <th scope="row" colSpan="4" class="border-0 text-end">
                                                         Costi di consegna</th>
                                                     <td class="border-0 text-end">€ 5</td>
                                                 </tr>
                                                 <tr>
-                                                    <th scope="row" colspan="4" class="border-0 text-end">Totale</th>
+                                                    <th scope="row" colSpan="4" class="border-0 text-end">Totale</th>
                                                     <td class="border-0 text-end"><h4 class="m-0 fw-semibold">€ {totalPrice + 5}</h4></td>
                                                 </tr>
                                             </tbody>
                                         </table>
                                     </div>
                                     <div class="d-print-none mt-4">
+                                        <input type="text" id="cardHolder" onChange={handleChangeCardHolder} placeholder="Nome e Cognome sulla carta" style={{ width: '25ch' }} />
+                                        <input type="text" id="cardNumber" onChange={handleChangeCardNumber} placeholder="Numero della carta" style={{ width: '22ch' }} />
+                                        <div>
+                                            <input type="number" id="expiryMonth" onChange={handleChangeCardMonth} placeholder="Mese" style={{ width: '6ch' }} />
+                                            <input type="number" id="expiryYear" onChange={handleChangeCardYear} placeholder="Anno" style={{ width: '7ch' }} />
+                                        </div>
+                                        <input type="number" id="cvv" onChange={handleChangeCardCvv} placeholder="CVV" style={{ width: '5ch' }} />
+
                                         <div class="float-end">
                                             <button onClick={() => emptyCart()} class="btn btn-danger">Svuota carrello</button>
                                             <a href="javascript:window.print()" class="btn btn-success me-1"><i class="fa fa-print"></i></a>
@@ -126,7 +156,7 @@ function Routing({ params: { men } }) {
                                     <h5 class="card-title">{item.name}</h5>
                                     <p class="card-text">{item.description}</p>
                                     <button onClick={() => addToCart(item.name, item.description, item.price)}>
-                                            Aggiungi Prodotto al Carrello
+                                        Aggiungi Prodotto al Carrello
                                     </button>
                                 </div>
                             </div>

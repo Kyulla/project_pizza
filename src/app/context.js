@@ -14,16 +14,28 @@ export const ProjectProvider = ({ children }) => {
     const [stateName, setName] = useState("")
     const [stateSurname, setSurname] = useState("")
     const [address, setAddress] = useState("");
-    const [city, setCity] = useState("");
+    const [city, setCity] = useState("Palermo");
     const [zipcode, setZipcode] = useState("");
     const [user, setUser] = useState("")
     const [cart, setCart] = useState([])
     const [showModal, setShowModal] = useState(false);
     const [detail, setDetail] = useState([])
+    const [cardHolder, setCardHolder] = useState("");
+    const [cardNumber, setCardNumber] = useState("");
+    const [cardMonth, setCardMonth] = useState("");
+    const [cardYear, setCardYear] = useState("");
+    const [cardCvv, setCardCvv] = useState("");
+
+    const addressRegex = /^[a-zA-Zà-úÀ-Ú]+\s[\w\s]+\d{1,5}$/;
+    const zipcodeRegex = /^\d{5}$/;
+    const cardHolderRegex = /^[a-zA-Z\s]{1,100}$/;
+    const cardNumberRegex = /^\d{16}$/;
+    const cardMonthRegex = /^(0[1-9]|1[0-2])$/;
+    const cardYearRegex = /^\d{2}|\d{4}$/;
+    const cardCvvRegex = /^\d{3,4}$/;
 
     const toggleMenu = () => {
         setIsMenuOpen(!isMenuOpen);
-        console.log(isMenuOpen)
     };
 
     useEffect(() => {
@@ -72,9 +84,39 @@ export const ProjectProvider = ({ children }) => {
         }
     }
 
-    function checkout() {
-        alert("Pagamento avvenuto con successo");
-        setCart([]);
+    function removeFromCart(name){
+        const itemIndex = cart.findIndex((item) => item.name === name);
+        let updatedCart = cart;
+
+        if(itemIndex >= 0){
+            if(updatedCart[itemIndex].quantity === 1){
+                updatedCart.splice(itemIndex, 1);
+            }
+            else{
+                updatedCart[itemIndex].quantity -= 1;
+            }
+            setCart(updatedCart => [...updatedCart]);
+        }
+    }
+
+    function checkout(){
+        if(addressRegex.test(address) && zipcode > 0 && zipcodeRegex.test(zipcode)){
+            if(cardHolderRegex.test(cardHolder) && cardNumberRegex.test(cardNumber) && cardMonthRegex.test(cardMonth) && cardYearRegex.test(cardYear) && cardCvvRegex.test(cardCvv)){
+                if((cardYear > 23 && cardYear < 40) || (cardYear > 2023 && cardYear < 2040)){                
+                    alert("Pagamento avvenuto con successo in "+address+" "+zipcode+" "+city+" "+cardHolder+" "+cardNumber+" "+cardMonth+" "+cardYear+" "+cardCvv);
+                    setCart([]);
+                }
+                else{
+                    alert("Pagamento non valido");
+                }
+            }
+            else{
+                alert("Pagamento non valido");
+            }
+        }
+        else{
+            alert("Indirizzo non valido");
+        }
     }
 
     function emptyCart() {
@@ -82,34 +124,48 @@ export const ProjectProvider = ({ children }) => {
         setCart([]);
     }
 
+    function handleChangeCardHolder(event) {
+        setCardHolder(event.target.value)
+    }
+
+    function handleChangeCardNumber(event) {
+        setCardNumber(event.target.value)
+    }
+
+    function handleChangeCardMonth(event) {
+        setCardMonth(event.target.value)
+    }
+
+    function handleChangeCardYear(event) {
+        setCardYear(event.target.value)
+    }
+
+    function handleChangeCardCvv(event) {
+        setCardCvv(event.target.value)
+    }
+
     function handleChangeUsername(event) {
         setUsername(event.target.value)
-        console.log(event.target.value)
     }
 
     function handleChangeName(event) {
         setName(event.target.value)
-        console.log(event.target.value)
     }
 
     function handleChangeSurname(event) {
         setSurname(event.target.value)
-        console.log(event.target.value)
     }
 
     function handleChangeAddress(event) {
         setAddress(event.target.value)
-        console.log(event.target.value)
     }
 
     function handleChangeCity(event) {
         setCity(event.target.value)
-        console.log(event.target.value)
     }
 
     function handleChangeZipcode(event) {
         setZipcode(event.target.value)
-        console.log(event.target.value)
     }
 
     function detailProduct(name, description, price, image) {
@@ -129,7 +185,7 @@ export const ProjectProvider = ({ children }) => {
     const handleCloseModal = () => setShowModal(false);
 
     return (
-        <CounterContext.Provider value={{ isMenuOpen, toggleMenu, menu, isLogged, loginForm, emptyCart, handleChangeUsername, handleChangeName, handleChangeSurname, handleChangeAddress, handleChangeCity, handleChangeZipcode, user, addToCart, cart, checkout, detailProduct, handleOpenModal, handleCloseModal, setShowModal, showModal, detail }}>
+        <CounterContext.Provider value={{ isMenuOpen, toggleMenu, menu, isLogged, loginForm, removeFromCart, emptyCart, handleChangeUsername, handleChangeName, handleChangeSurname, handleChangeAddress, handleChangeCity, handleChangeZipcode, handleChangeCardHolder, handleChangeCardNumber, handleChangeCardMonth, handleChangeCardYear, handleChangeCardCvv, user, addToCart, cart, checkout, detailProduct, handleOpenModal, handleCloseModal, setShowModal, showModal, detail }}>
             {children}
         </CounterContext.Provider>
     );
