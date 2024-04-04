@@ -6,7 +6,7 @@ import { Image } from "react-bootstrap";
 import { Row, Col } from 'react-bootstrap';
 const Home = () => {
 
-    const { menu, addToCart, detailProduct } = useProject();
+    const { menu, addToCart, detailProduct, handleOpenModal } = useProject();
     if (menu == null) return <p>loading...</p>
     return (
         <>

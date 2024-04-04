@@ -127,7 +127,7 @@ export const ProjectProvider = ({ children }) => {
     const handleCloseModal = () => setShowModal(false);
 
     return (
-        <CounterContext.Provider value={{ isMenuOpen, toggleMenu, menu, isLogged, loginForm, emptyCart, handleChangeUsername, handleChangeName, handleChangeSurname, handleChangeAddress, handleChangeCity, handleChangeZipcode, user, addToCart, cart, checkout, detailProduct }}>
+        <CounterContext.Provider value={{ isMenuOpen, toggleMenu, menu, isLogged, loginForm, emptyCart, handleChangeUsername, handleChangeName, handleChangeSurname, handleChangeAddress, handleChangeCity, handleChangeZipcode, user, addToCart, cart, checkout, detailProduct, handleOpenModal, handleCloseModal }}>
             {children}
         </CounterContext.Provider>
     );
