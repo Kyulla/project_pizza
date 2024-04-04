@@ -16,19 +16,19 @@ function Sidebar() {
                             <Link href="http://localhost:3000/">Home</Link>
                         </li>
                         <li>
-                            <Link href="/example/Pizze">Pizze</Link>
+                            <Link href="/section/Pizze">Pizze</Link>
                         </li>
                         <li>
-                            <Link href="/example/Panini">Panini</Link>
+                            <Link href="/section/Panini">Panini</Link>
                         </li>
                         <li>
-                            <Link href="/example/Antipasti">Antipasti</Link>
+                            <Link href="/section/Antipasti">Antipasti</Link>
                         </li>
                         <li>
-                            <Link href="/example/Desert">Desert</Link>
+                            <Link href="/section/Desert">Desert</Link>
                         </li>
                         <li>
-                            <Link href="/example/Bibite">Bibite</Link>
+                            <Link href="/section/Bibite">Bibite</Link>
                         </li>
                     </ul>
                 </div>
