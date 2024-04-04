@@ -19,6 +19,7 @@ export const ProjectProvider = ({ children }) => {
     const [user, setUser] = useState("")
     const [cart, setCart] = useState([])
     const [showModal, setShowModal] = useState(false);
+    const [detail, setDetail] = useState([])
 
     const toggleMenu = () => {
         setIsMenuOpen(!isMenuOpen);
@@ -128,7 +129,7 @@ export const ProjectProvider = ({ children }) => {
     const handleCloseModal = () => setShowModal(false);
 
     return (
-        <CounterContext.Provider value={{ isMenuOpen, toggleMenu, menu, isLogged, loginForm, emptyCart, handleChangeUsername, handleChangeName, handleChangeSurname, handleChangeAddress, handleChangeCity, handleChangeZipcode, user, addToCart, cart, checkout, detailProduct, handleOpenModal, handleCloseModal, setShowModal, showModal }}>
+        <CounterContext.Provider value={{ isMenuOpen, toggleMenu, menu, isLogged, loginForm, emptyCart, handleChangeUsername, handleChangeName, handleChangeSurname, handleChangeAddress, handleChangeCity, handleChangeZipcode, user, addToCart, cart, checkout, detailProduct, handleOpenModal, handleCloseModal, setShowModal, showModal, detail }}>
             {children}
         </CounterContext.Provider>
     );
