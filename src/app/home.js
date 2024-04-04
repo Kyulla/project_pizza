@@ -4,12 +4,14 @@ import '@fortawesome/fontawesome-free/css/all.min.css';
 import { useProject } from './context';
 import { Image } from "react-bootstrap";
 import { Row, Col } from 'react-bootstrap';
+import MyModal from './detailProduct';
 const Home = () => {
 
     const { menu, addToCart, detailProduct, handleOpenModal } = useProject();
     if (menu == null) return <p>loading...</p>
     return (
         <>
+            <MyModal />
             <Row style={{ display: 'flex', justifyContent: 'center', backgroundColor: 'lightblue' }}>
                 {menu.map((item, index) => (
                     <>
