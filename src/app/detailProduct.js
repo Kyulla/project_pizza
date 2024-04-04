@@ -5,7 +5,7 @@ import { useProject } from './context';
 import { Image } from "react-bootstrap";
 
 function MyModal() {
-    const { handleCloseModal, showModal, setShowModal, detail } = useProject();
+    const { handleCloseModal, showModal, detail } = useProject();
 
     return (
         <div>
