@@ -70,12 +70,12 @@ export const ProjectProvider = ({ children }) => {
         }
     }
 
-    function checkout(){
+    function checkout() {
         alert("Pagamento avvenuto con successo");
         setCart([]);
     }
 
-    function emptyCart(){
+    function emptyCart() {
         alert("Carrello svuotato");
         setCart([]);
     }
@@ -110,8 +110,24 @@ export const ProjectProvider = ({ children }) => {
         console.log(event.target.value)
     }
 
+    function detailProduct(name, description, price, image) {
+        const obj = {
+            name: name,
+            description: description,
+            price: price,
+            image: image
+        };
+
+        const arr = [obj];
+
+        setDetail(arr);
+    }
+
+    const handleOpenModal = () => setShowModal(true);
+    const handleCloseModal = () => setShowModal(false);
+
     return (
-        <CounterContext.Provider value={{ isMenuOpen, toggleMenu, menu, isLogged, loginForm, emptyCart, handleChangeUsername, handleChangeName, handleChangeSurname, handleChangeAddress, handleChangeCity, handleChangeZipcode, user, addToCart, cart, checkout }}>
+        <CounterContext.Provider value={{ isMenuOpen, toggleMenu, menu, isLogged, loginForm, emptyCart, handleChangeUsername, handleChangeName, handleChangeSurname, handleChangeAddress, handleChangeCity, handleChangeZipcode, user, addToCart, cart, checkout, detailProduct }}>
             {children}
         </CounterContext.Provider>
     );

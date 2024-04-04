@@ -6,7 +6,7 @@ import { Image } from "react-bootstrap";
 import { Row, Col } from 'react-bootstrap';
 const Home = () => {
 
-    const { menu, addToCart } = useProject();
+    const { menu, addToCart, detailProduct } = useProject();
     if (menu == null) return <p>loading...</p>
     return (
         <>
@@ -24,7 +24,10 @@ const Home = () => {
                                     />
                                     <div className="card-body">
                                         <h5 class="card-title">{value.name}</h5>
-                                        <p class="card-text">Leggi di più</p>
+                                        <p class="card-text" onClick={() => {
+                                            handleOpenModal();
+                                            detailProduct(value.name, value.description, value.price, value.image)
+                                        }}>Leggi di più</p>
                                         <button onClick={() => addToCart(value.name, value.description, value.price)}>
                                             Aggiungi Prodotto al Carrello
                                         </button>
