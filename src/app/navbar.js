@@ -10,7 +10,7 @@ const Navbar = () => {
             <div className="container-fluid ">
                 <div className="d-flex justify-content-between align-items-center w-100">
                     <i onClick={toggleMenu} className="fas fa-bars text-white"></i>
-                    <Link className="text-white" href="http://localhost:3000/">Home</Link>
+                    <Link className="text-white" href="../">Home</Link>
                     <Link className="fa fa-shopping-cart text-white " href="/section/Carrello"></Link>
                 </div>
             </div>

@@ -13,7 +13,7 @@ function Sidebar() {
                 <div id="sidebar-wrapper" className={`sidebar-wrapper ${isMenuOpen ? 'active' : 'hidden'}`}>
                     <ul className="sidebar-nav">
                         <li className="sidebar-brand">
-                            <Link href="http://localhost:3000/">Home</Link>
+                            <Link href="../">Home</Link>
                         </li>
                         <li>
                             <Link href="/section/Pizze">Pizze</Link>

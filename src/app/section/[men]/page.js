@@ -5,7 +5,7 @@ import { Form, Image } from "react-bootstrap";
 import { Row, Col } from 'react-bootstrap';
 
 function Routing({ params: { men } }) {
-    const { menu, cart, user, checkout, addToCart, city, emptyCart, removeFromCart, handleChangeCardHolder,handleChangeCardNumber, handleChangeCardMonth, handleChangeCardYear, handleChangeCardCvv, handleChangeAddress, handleChangeCity, handleChangeZipcode } = useProject();
+    const { menu, cart, checkout, addToCart, emptyCart, removeFromCart, handleChangeFullName, handleChangeCardHolder,handleChangeCardNumber, handleChangeCardMonth, handleChangeCardYear, handleChangeCardCvv, handleChangeAddress, handleChangeCity, handleChangeZipcode } = useProject();
     const isCartRoute = men === 'Carrello';
     const totalPrice = cart.reduce((total, item) => total + (item.price * item.quantity), 0);
     const date = new Date();
@@ -36,7 +36,7 @@ function Routing({ params: { men } }) {
                                     <div class="col-sm-6">
                                         <div class="text-muted">
                                             <h5 class="font-size-16 mb-3">Intestato a:</h5>
-                                            <h5 class="font-size-15 mb-2">{user.name} {user.surname}</h5>
+                                            <h5 class="font-size-15 mb-2"><input type="text" id="fullName" onChange={handleChangeFullName} placeholder="Nome e Cognome" style={{ width: '32.5ch' }} /></h5>
                                             <Form style={{ width: '22rem' }}>
                                                 < Form.Group className="mb-4" >
                                                     <Form.Control placeholder="Indirizzo" type="text" id="Address" onChange={handleChangeAddress} required />
@@ -126,7 +126,7 @@ function Routing({ params: { men } }) {
                                         <div class="float-end">
                                             <button onClick={() => emptyCart()} class="btn btn-danger">Svuota carrello</button>
                                             <a href="javascript:window.print()" class="btn btn-success me-1"><i class="fa fa-print"></i></a>
-                                            <button onClick={() => checkout()} class="btn btn-primary w-md">Paga</button>
+                                            <button onClick={() => checkout(dateString)} class="btn btn-primary w-md">Paga</button>
                                         </div>
                                     </div>
                                 </div>

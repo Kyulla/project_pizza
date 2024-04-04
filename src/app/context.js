@@ -1,7 +1,7 @@
 "use client"
 import React, { createContext, useContext, useEffect, useState } from 'react';
 import axios from 'axios';
-import { POST } from './api/addUser/route';
+import { POST as postOrder } from './api/addOrder/route';
 const CounterContext = createContext();
 
 export const useProject = () => useContext(CounterContext);
@@ -9,10 +9,7 @@ export const useProject = () => useContext(CounterContext);
 export const ProjectProvider = ({ children }) => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const [menu, setMenu] = useState();
-    const [isLogged, setLogin] = useState(false)
-    const [stateUsername, setUsername] = useState("")
-    const [stateName, setName] = useState("")
-    const [stateSurname, setSurname] = useState("")
+    const [fullName, setFullName] = useState("")
     const [address, setAddress] = useState("");
     const [city, setCity] = useState("Palermo");
     const [zipcode, setZipcode] = useState("");
@@ -33,6 +30,7 @@ export const ProjectProvider = ({ children }) => {
     const cardMonthRegex = /^(0[1-9]|1[0-2])$/;
     const cardYearRegex = /^\d{2}|\d{4}$/;
     const cardCvvRegex = /^\d{3,4}$/;
+    const fullNameRegex = /^[a-zA-Zà-úÀ-Ú]+(?:\s[a-zA-Zà-úÀ-Ú]+)?\s[a-zA-Zà-úÀ-Ú]+$/;
 
     const toggleMenu = () => {
         setIsMenuOpen(!isMenuOpen);
@@ -53,18 +51,6 @@ export const ProjectProvider = ({ children }) => {
         fetchMenuItems();
     }, []);
 
-    function loginForm() {
-        setLogin(!isLogged)
-        const user = {
-            username: stateUsername,
-            name: stateName,
-            surname: stateSurname,
-            address: address,
-            city: city,
-            zipcode: zipcode,
-        }
-        setUser(user)
-    }
 
     function addToCart(name, description, price) {
         const existingItemIndex = cart.findIndex(item => item.name === name);
@@ -99,29 +85,55 @@ export const ProjectProvider = ({ children }) => {
         }
     }
 
-    function checkout(){
-        if(addressRegex.test(address) && zipcode > 0 && zipcodeRegex.test(zipcode)){
-            if(cardHolderRegex.test(cardHolder) && cardNumberRegex.test(cardNumber) && cardMonthRegex.test(cardMonth) && cardYearRegex.test(cardYear) && cardCvvRegex.test(cardCvv)){
-                if((cardYear > 23 && cardYear < 40) || (cardYear > 2023 && cardYear < 2040)){                
-                    alert("Pagamento avvenuto con successo in "+address+" "+zipcode+" "+city+" "+cardHolder+" "+cardNumber+" "+cardMonth+" "+cardYear+" "+cardCvv);
-                    setCart([]);
+    function checkout(date){
+        if(fullNameRegex.test(fullName)){
+            if(addressRegex.test(address) && zipcode > 0 && zipcodeRegex.test(zipcode)){
+                if(cardHolderRegex.test(cardHolder) && cardNumberRegex.test(cardNumber) && cardMonthRegex.test(cardMonth) && cardYearRegex.test(cardYear) && cardCvvRegex.test(cardCvv)){
+                    if((cardYear > 23 && cardYear < 40) || (cardYear > 2023 && cardYear < 2040)){    
+                        if(cart.length !== 0){            
+                            alert("Pagamento avvenuto con successo.");
+                            postOrder(newOrder(date));
+                            setCart([]);
+                        }
+                        else{
+                            alert("Carrello vuoto.");
+                        }
+                    }
                 }
                 else{
-                    alert("Pagamento non valido");
+                    alert("Metodo di pagamento non valido.");
                 }
             }
             else{
-                alert("Pagamento non valido");
+                alert("Indirizzo non valido.");
             }
         }
         else{
-            alert("Indirizzo non valido");
+            alert("Nome completo non valido.");
         }
     }
 
     function emptyCart() {
-        alert("Carrello svuotato");
-        setCart([]);
+        if(cart.length !== 0){
+            alert("Carrello svuotato.");
+            setCart([]);
+        }
+    }
+
+    function newOrder(date){
+        const order = {
+            fullName: fullName,
+            address: address,
+            city: city,
+            zipcode, zipcode,
+            date: date,
+            cardInfo:{
+                cardHolder: cardHolder,
+                cardNumber: cardNumber.toString().slice(-4)
+            },
+            orderedItems: cart
+        };
+        return order;
     }
 
     function handleChangeCardHolder(event) {
@@ -144,16 +156,8 @@ export const ProjectProvider = ({ children }) => {
         setCardCvv(event.target.value)
     }
 
-    function handleChangeUsername(event) {
-        setUsername(event.target.value)
-    }
-
-    function handleChangeName(event) {
-        setName(event.target.value)
-    }
-
-    function handleChangeSurname(event) {
-        setSurname(event.target.value)
+    function handleChangeFullName(event) {
+        setFullName(event.target.value)
     }
 
     function handleChangeAddress(event) {
@@ -185,7 +189,7 @@ export const ProjectProvider = ({ children }) => {
     const handleCloseModal = () => setShowModal(false);
 
     return (
-        <CounterContext.Provider value={{ isMenuOpen, toggleMenu, menu, isLogged, loginForm, removeFromCart, emptyCart, handleChangeUsername, handleChangeName, handleChangeSurname, handleChangeAddress, handleChangeCity, handleChangeZipcode, handleChangeCardHolder, handleChangeCardNumber, handleChangeCardMonth, handleChangeCardYear, handleChangeCardCvv, user, addToCart, cart, checkout, detailProduct, handleOpenModal, handleCloseModal, setShowModal, showModal, detail }}>
+        <CounterContext.Provider value={{ isMenuOpen, toggleMenu, menu, removeFromCart, emptyCart, handleChangeFullName, handleChangeAddress, handleChangeCity, handleChangeZipcode, handleChangeCardHolder, handleChangeCardNumber, handleChangeCardMonth, handleChangeCardYear, handleChangeCardCvv, user, addToCart, cart, checkout, detailProduct, handleOpenModal, handleCloseModal, setShowModal, showModal, detail }}>
             {children}
         </CounterContext.Provider>
     );
