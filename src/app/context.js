@@ -68,6 +68,7 @@ export const ProjectProvider = ({ children }) => {
             };
             setCart(prevCart => [...prevCart, newItem]);
         }
+        alert("Aggiunto al carrello.");
     }
 
     function removeFromCart(name){
