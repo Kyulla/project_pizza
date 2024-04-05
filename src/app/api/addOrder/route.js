@@ -17,12 +17,11 @@ export async function POST(newOrder) {
         const result = await ordersCollection.insertOne(newOrder);
 
         if (result.insertedCount === 1) {
-            return NextResponse.created({ success: true, message: 'Ordine salvato con successo' });
-        } else {
-            throw new Error("Errore durante il salvataggio dell'ordine");
+            return NextResponse.json({ success: true, message: 'Ordine salvato con successo' });
         }
+        
     } catch (error) {
         console.error("Errore durante il salvataggio dell'ordine:", error);
-        return NextResponse.error({ success: false, error: error.message });
+        return NextResponse.json({ success: false, error: error.message });
     }
 }
